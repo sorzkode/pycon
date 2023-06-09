@@ -1,45 +1,40 @@
 [![CodeQL](https://github.com/sorzkode/pycon/actions/workflows/codeql.yml/badge.svg)](https://github.com/sorzkode/pycon/actions/workflows/codeql.yml)
-[[MIT Licence](https://en.wikipedia.org/wiki/MIT_License)]
+[![MIT Licence](https://en.wikipedia.org/wiki/MIT_License)]
 
-
-![alt text](https://raw.githubusercontent.com/sorzkode/pycon/master/assets/pycgit.png)
+![PYCON](https://raw.githubusercontent.com/sorzkode/pycon/master/assets/pycgit.png)
 
 # PYCON
 
-A PNG to ICO converter made with PySimpleGUI and Pillow.
+PYCON is a PNG to ICO converter made with PySimpleGUI and Pillow.
 
 ## Example
 
-![alt text](https://raw.githubusercontent.com/sorzkode/pycon/master/assets/example.png)
+![Example](https://raw.githubusercontent.com/sorzkode/pycon/master/assets/example.png)
 
 ## Installation
 
-Download zip from Github, changedir (cd) to the script directory and run the following:
+Download the ZIP from the GitHub repository, change the directory (cd) to the script directory, and run the following command:
 ```
 pip install -e .
 ```
-*This will install the PYCON package locally 
+*This will install the PYCON package locally.
 
-Installation isn't required to run the script but you will need to ensure the requirements below are met.
+Note: Installation isn't required to run the script, but you need to ensure that the following requirements are met.
 
 ## Requirements
 
-  [[Python 3](https://www.python.org/downloads/)]
-
-  [[PySimpleGUI](https://pypi.org/project/PySimpleGUI/)] 
-
-  [[Pillow](https://pypi.org/project/Pillow/)]
-
-  [[tkinter](https://docs.python.org/3/library/tkinter.html)] :: Linux Users
+- [Python 3](https://www.python.org/downloads/)
+- [PySimpleGUI](https://pypi.org/project/PySimpleGUI/)
+- [Pillow](https://pypi.org/project/Pillow/)
+- [tkinter](https://docs.python.org/3/library/tkinter.html) (Linux Users)
 
 ## Usage
 
-If installed you can use the following command syntax:
+If installed, you can use the following command syntax:
 ```
 python -m pycon
 ```
-
-Otherwise you can run the script directly by changing directory (cd) in a terminal of your choice to the pycon directory and using the following syntax:
+Otherwise, you can run the script directly by changing the directory (cd) in a terminal of your choice to the pycon directory and using the following syntax:
 ```
 python pycon.py
 ```

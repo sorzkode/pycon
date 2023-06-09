@@ -11,12 +11,12 @@
 A PNG to ICO image converter made with PySimpleGUI and Pillow.
 -
 Author:
-sorzkode
+Mister Riley
 sorzkode@proton.me
 https://github.com/sorzkode
 
 MIT License
-Copyright (c) 2022 sorzkode
+Copyright (c) 2023 Mister Riley
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
 to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
 and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -31,6 +31,12 @@ from tkinter.font import BOLD, ITALIC
 import PySimpleGUI as sg
 from PIL import Image
 from os.path import exists
+
+# Font styles
+FONT_TITLE = ('Lucida', 14, BOLD)
+FONT_SUBTITLE = ('Lucida', 12, ITALIC)
+FONT_BUTTON = ('Lucida', 12, BOLD)
+FONT_SUBTEXT = ('Lucida', 10, BOLD)
 
 # PySimpleGUI version info
 SGVERSION = sg.version
@@ -59,11 +65,11 @@ LAYOUT = [
     [
         sg.Text(
             "Image Selection:",
-            font=('Lucida', 14, BOLD)
+            font=FONT_TITLE
             ),
         sg.In(
             "Select your PNG file...",
-            font=("Lucida", 12, ITALIC),
+            font=FONT_SUBTITLE,
             pad=(5, 15),
             enable_events=True,
             disabled=True,
@@ -71,7 +77,7 @@ LAYOUT = [
             ),
         sg.Button(
             "Browse",
-            font=("Lucida", 12, BOLD),
+            font=FONT_BUTTON,
             pad=(5, 15),
             disabled=False
             ),
@@ -79,7 +85,7 @@ LAYOUT = [
     [
         sg.Text(
             "ICO Properties:",
-            font=("Lucida", 10, BOLD)
+            font=FONT_SUBTEXT
             ),
         sg.Spin(
             values=(
@@ -99,19 +105,19 @@ LAYOUT = [
     [
         sg.Button(
             "Convert",
-            font=("Lucida", 12, BOLD),
+            font=FONT_BUTTON,
             pad=(5, 15),
             disabled=True
             ),
         sg.Button(
             "Clear",
-            font=("Lucida", 12, BOLD),
+            font=FONT_BUTTON,
             pad=(5, 15),
             disabled=True
             ),
         sg.Button(
             "Exit", 
-            font=("Lucida", 12, BOLD),
+            font=FONT_BUTTON,
             pad=(5, 15)
             ),
     ],
@@ -207,40 +213,30 @@ class PyconWindow:
         return ico_name
    
     def convert_image(self):
-
-        '''Converting PNG file to ICO'''
-
         png_image = self.values['-FILEPATH-']
         save_path = self.save_location()
         ico_name = self.new_name()
         ico_properties = self.values['-PROPERTIES-']
 
-        if ico_properties == '16x16':
-            ico_width = int(16)
-            ico_height = int(16)
+        size_mapping = {
+            '16x16': (16, 16),
+            '24x24': (24, 24),
+            '32x32': (32, 32),
+            '64x64': (64, 64)
+        }
 
-        if ico_properties == '24x24':
-            ico_width = int(24)
-            ico_height = int(24)
-
-        if ico_properties == '32x32':
-            ico_width = int(32)
-            ico_height = int(32)
-
-        if ico_properties == '64x64':
-            ico_width = int(64)
-            ico_height = int(64)
+        ico_width, ico_height = size_mapping.get(ico_properties, (32, 32))
 
         new_file = str(save_path + '/' + ico_name + '.ico')
         file_exists = exists(new_file)
-        
+
         open_image = Image.open(png_image)
 
-        if file_exists is True:
+        if file_exists:
             warning_message = sg.popup_ok_cancel(
-            f"WARNING! {ico_name} already exists in this directory. Replace?",
-            grab_anywhere=True, 
-            keep_on_top=True
+                f"WARNING! {ico_name} already exists in this directory. Replace?",
+                grab_anywhere=True,
+                keep_on_top=True
             )
             if warning_message == "OK":
                 try:
@@ -248,44 +244,45 @@ class PyconWindow:
                         new_file,
                         format='ICO',
                         sizes=[(ico_width, ico_height)]
-                        )
+                    )
                     sg.popup(
                         'Success!',
                         grab_anywhere=True,
                         keep_on_top=True,
-                        )
+                    )
                     self.reset_defaults()
-                except Exception as e_message:
+                except Exception as e:
                     sg.popup(
-                        f'{e_message}, try again',
+                        f'Error while saving the ICO file: {str(e)}',
                         grab_anywhere=True,
                         keep_on_top=True,
                     )
-            if warning_message == "Cancel":
+            else:  # Cancel button was clicked
                 sg.popup(
                     'Conversion cancelled. Try another name.',
                     grab_anywhere=True,
                     keep_on_top=True
-                    )
-        if file_exists is False:
+                )
+        else:
             try:
                 open_image.save(
                     new_file,
                     format='ICO',
                     sizes=[(ico_width, ico_height)]
-                    )
+                )
                 sg.popup(
                     'Success!',
                     grab_anywhere=True,
                     keep_on_top=True,
-                    )
+                )
                 self.reset_defaults()
-            except Exception as e_message:
+            except Exception as e:
                 sg.popup(
-                    f'{e_message}, try again',
+                    f'Error while saving the ICO file: {str(e)}',
                     grab_anywhere=True,
                     keep_on_top=True,
                 )
+
 
     def about_gui(self):
 
@@ -294,7 +291,7 @@ class PyconWindow:
         sg.popup(
             "A PNG to ICO converter.",
             "",
-            "Author: sorzkode",
+            "Author: Mister Riley",
             "Website: https://github.com/sorzkode",
             "License: MIT",
             "",
