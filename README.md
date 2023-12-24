@@ -13,14 +13,32 @@ PYCON is a PNG to ICO converter made with PySimpleGUI and Pillow.
 
 ## Installation
 
-Download the ZIP from the GitHub repository, change the directory (cd) to the script directory, and run the following command:
-```
-pip install -e .
-```
-*This will install the PYCON package locally.
+To install PYCON, follow these steps:
 
-Note: Installation isn't required to run the script, but you need to ensure that the following requirements are met.
+1. Download the ZIP from the [GitHub repository](https://github.com/sorzkode/pycon).
+2. Extract the ZIP file to a directory of your choice.
+3. Open a terminal or command prompt and navigate to the extracted directory.
+4. Run the following command to install the dependencies:
 
+    ```
+    pip install -r requirements.txt
+    ```
+
+    This will install Python 3, PySimpleGUI, Pillow, and tkinter (for Linux users).
+
+5. Once the dependencies are installed, you can run the script using the following command:
+
+    ```
+    python pycon.py
+    ```
+
+    Alternatively, you can use the following command if you have installed PYCON as a package:
+
+    ```
+    python -m pycon
+    ```
+
+Note: Installation is not required to run the script, but you need to ensure that the above requirements are met.
 ## Requirements
 
 - [Python 3](https://www.python.org/downloads/)

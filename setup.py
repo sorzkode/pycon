@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name='pycon',
-    version='1.0.0',
+    version='1.1.0',
     description='A PNG to ICO converter',
     url='https://github.com/sorzkode/pycon',
     author='Mister Riley',
@@ -22,4 +22,13 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     python_requires='>=3.6',
+    keywords='png ico converter',
+    license='MIT',
+    zip_safe=False,
+    include_package_data=True,
+    entry_points={
+        'console_scripts': [
+            'pycon=pycon:main',
+        ],
+    },
 )
